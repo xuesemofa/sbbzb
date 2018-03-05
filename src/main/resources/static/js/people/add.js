@@ -17,12 +17,12 @@ $(function(){
                 $('.htmlBody2').hide();
             },
             success: function (req) {
-                if(req.success){
+                if(req){
                     alert('成功');
                     $('#people_back_button').click();
                 }else{
+                    alert('失败');
                     $('#people_add_button').removeAttr('disabled');
-                    alert(req.message);
                 }
                 $('.htmlBody1').hide();
                 $('.htmlBody2').show();

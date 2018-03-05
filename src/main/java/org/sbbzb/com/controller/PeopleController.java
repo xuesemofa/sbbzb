@@ -3,7 +3,6 @@ package org.sbbzb.com.controller;
 import com.github.pagehelper.Page;
 import org.sbbzb.com.model.PeopleModel;
 import org.sbbzb.com.service.PeopleService;
-import org.sbbzb.com.util.redirect.RedirectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -38,21 +37,16 @@ public class PeopleController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ModelAndView add(@ModelAttribute("form") PeopleModel model) {
-        RedirectUtil redirectUtil = new RedirectUtil();
-        if (model.getUuid() == null || model.getName().isEmpty())
-            return new ModelAndView("/people/add")
-                    .addObject("error", "姓名不能为空");
+    public boolean add(@ModelAttribute("form") PeopleModel model) {
+        if (model.getName() == null || model.getName().isEmpty())
+            return false;
         Page<PeopleModel> page = service.findByName(1, 15, model.getName());
         if (page.size() > 0)
-            return new ModelAndView("/people/add")
-                    .addObject("error", "姓名重复");
+            return false;
         int i = service.save(model);
         if (i > 0)
-            return new ModelAndView(redirectUtil.getRedirect() + "/people/init")
-                    .addObject("pageNow", 1);
+            return true;
         else
-            return new ModelAndView("/people/add")
-                    .addObject("error", "保存失败");
+            return false;
     }
 }
