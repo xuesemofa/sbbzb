@@ -1,10 +1,10 @@
 package junit;
 
 import org.junit.runner.RunWith;
+import org.sbbzb.com.Application;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.watch.com.Application;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)

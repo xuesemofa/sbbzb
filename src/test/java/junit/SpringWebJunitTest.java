@@ -1,10 +1,10 @@
 package junit;
 
 import org.junit.runner.RunWith;
+import org.sbbzb.com.Application;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.watch.com.Application;
 
 /**
  * 单元测试 此为单元测试模版，如需要单元测试请完全按照正式java文件中的包路径自行新建自己的单元测试，请勿使用本类
