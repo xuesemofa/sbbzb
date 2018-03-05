@@ -6,7 +6,6 @@ import org.apache.shiro.session.SessionException;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,9 +30,6 @@ public class LoginController {
     private final static Logger log = LoggerFactory
             .getLogger(LoginController.class);
 
-    @Autowired
-    private ResponseResult<LoginModel> result;
-
     /**
      * @param model         LoginModel
      * @param bindingResult BindingResult
@@ -44,12 +40,13 @@ public class LoginController {
             @Valid @ModelAttribute("form") LoginModel model,
             BindingResult bindingResult,
             HttpServletResponse response) throws Exception {
+        ResponseResult<LoginModel> result = new ResponseResult<>();
         //数据验证
         if (bindingResult.hasErrors()) {
-            this.result.setSuccess(false);
-            this.result.setCode(400);
-            this.result.setMessage(bindingResult.getFieldError().getDefaultMessage());
-            return this.result;
+            result.setSuccess(false);
+            result.setCode(400);
+            result.setMessage(bindingResult.getFieldError().getDefaultMessage());
+            return result;
         }
         //验证用户和令牌的有效性
         MyUsernamePasswordToken token = new MyUsernamePasswordToken(model.getUsername(),
@@ -64,23 +61,23 @@ public class LoginController {
             cookie.setPath("/");
             cookie.setMaxAge(60);
             response.addCookie(cookie);
-            this.result.setSuccess(true);
-            this.result.setCode(200);
-            this.result.setMessage(null);
-            this.result.setData(null);
-            return this.result;
+            result.setSuccess(true);
+            result.setCode(200);
+            result.setMessage(null);
+            result.setData(null);
+            return result;
         } catch (UnknownAccountException e) {
-            this.result.setSuccess(false);
-            this.result.setCode(400);
-            this.result.setMessage(e.getMessage());
-            return this.result;
+            result.setSuccess(false);
+            result.setCode(400);
+            result.setMessage(e.getMessage());
+            return result;
         } catch (Exception e) {
             log.info("获取令牌失败");
             log.info(e.getMessage());
-            this.result.setSuccess(false);
-            this.result.setCode(400);
-            this.result.setMessage("账号密码错误!");
-            return this.result;
+            result.setSuccess(false);
+            result.setCode(400);
+            result.setMessage("账号密码错误!");
+            return result;
         }
     }
 

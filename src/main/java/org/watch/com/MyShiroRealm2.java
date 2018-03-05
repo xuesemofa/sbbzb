@@ -7,11 +7,8 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.watch.com.publics.account.model.AccountModel;
-import org.watch.com.publics.account.service.AccountService;
-import org.watch.com.util.resultJson.ResponseResult;
+import org.watch.com.model.LoginModel;
 
 /**
  * 用于判断user
@@ -20,9 +17,6 @@ import org.watch.com.util.resultJson.ResponseResult;
 public class MyShiroRealm2 extends AuthorizingRealm {
 
     private static final Logger log = LoggerFactory.getLogger(MyShiroRealm2.class);
-
-    @Autowired
-    private AccountService accountService;
 
     @Override
     public String getName() {
@@ -41,15 +35,14 @@ public class MyShiroRealm2 extends AuthorizingRealm {
         }
 //        账号密码登录
         if (myToken.getUsername() != null && !myToken.getUsername().isEmpty()) {
-            ResponseResult<AccountModel> result = accountService.getByAccount(myToken.getUsername());
-            if (result.isSuccess()) {
-                return new SimpleAuthenticationInfo(
-                        result.getData(),
-                        result.getData().getPassword(),
-                        getName()
-                );
-            } else
-                throw new UnknownAccountException("账号或密码错误!");
+            LoginModel model = new LoginModel();
+            model.setUsername("xuesemofa");
+            model.setPassword("xuesemofa123");
+            return new SimpleAuthenticationInfo(
+                    model,
+                    model.getPassword(),
+                    getName()
+            );
         } else {
             //令牌登录
 //            myToken.setUsername(myToken.getSignature());

@@ -4,14 +4,14 @@ package org.watch.com.model;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-public class LoginModel {
+import java.io.Serializable;
+
+public class LoginModel implements Serializable {
 
     @NotBlank(message = "账户不能为空")
-    @Length(message = "密码长度为8-20", min = 7, max = 20)
     private String username;
 
     @NotBlank(message = "密码不能为空")
-    @Length(message = "密码长度为8-20", min = 7, max = 20)
     private String password;
 
     private String yzm;
