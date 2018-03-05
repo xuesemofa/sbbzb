@@ -1,0 +1,24 @@
+<div class="col-lg-12">
+    <div class="htmlBody1" style="display:none;">
+        正在获取数据...
+    </div>
+    <div class="middle-box text-center loginscreen animated fadeInDown" style="margin-top: 150px;">
+        <div>
+            <form class="m-t" id="fzbrq_add_form" action="#" method="post">
+                <div class="form-group" style="position:relative;">
+                    <input type="text" class="form-control date_picker" readonly="readonly" placeholder="时间" required=""
+                           style="background:#fff;" name="dates"/>
+                </div>
+                <input type="button" class="btn btn-primary block full-width m-b" value="提交" id="fzbrq_add_button"/>
+                <input type="button"
+                       class="btn btn-primary block full-width m-b"
+                       onclick="window.parent.cli(this)"
+                       data-target="/fzbrq/init"
+                       value="返回"
+                       id="fzbrq_back_button"/>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/fzbrq/add.js}"></script>

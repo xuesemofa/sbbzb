@@ -1,0 +1,56 @@
+<div class="col-lg-12">
+    <div class="htmlBody1">
+        正在获取数据...
+    </div>
+    <div class="ibox float-e-margins htmlBody2" style="display:none;">
+        <div class="ibox-title">
+            <h5>人员列表</h5>
+            <div class="ibox-tools">
+                <button type="button"
+                        class="btn btn-sm btn-primary toAdd"
+                        onclick="export_data()">导出excel</button>
+                <button type="button"
+                        class="btn btn-sm btn-primary toAdd"
+                        onclick="window.parent.cli(this)"
+                        data-target="/xszbb/init">返回</button>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-sm-5 m-b-xs">
+                    <div style="display:none;">
+                        <form class="m-t" id="export_form" th:action="@{/xszbb/export}" method="post">
+                                <input type="text" name="name" id="export_name"/>
+                                <input type="text" name="title" id="export_title"/>
+                                <input type="text" name="data" id="export_data"/>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-sm-4 m-b-xs">
+                </div>
+                <div class="col-sm-3">
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>带班</th>
+                        <th>上午</th>
+                        <th>下午</th>
+                        <th>中午晚上</th>
+                        <th>日期</th>
+                        <th>星期</th>
+                    </tr>
+                    </thead>
+                    <tbody id="table_data" th:attr="data_id=${id}">
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/xszbb/query.js}"></script>

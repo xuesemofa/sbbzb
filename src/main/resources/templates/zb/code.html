@@ -1,0 +1,60 @@
+<link th:href="@{/css/db.code.css}" rel="stylesheet"/>
+<div class="col-lg-12">
+    <div class="htmlBody1">
+        正在获取数据...
+    </div>
+    <div class="ibox float-e-margins htmlBody2" style="display:none;">
+        <div class="ibox-title">
+            <h5 th:if="${sex}==M" th:attr="sex=${sex}" style="color:red;" class="sex">男版</h5>
+            <h5 th:if="${sex}==F" th:attr="sex=${sex}" style="color:red;" class="sex">女版</h5>
+            <div class="ibox-tools">
+                <button type="button" class="btn btn-sm btn-primary" onclick="sub()">提交</button>
+                <button type="button"
+                        class="btn btn-sm btn-primary"
+                        id="zb_back_button"
+                        onclick="window.parent.cli(this)"
+                        data-target="/zb/init">返回</button>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-sm-5 m-b-xs">
+                </div>
+                <div class="col-sm-4 m-b-xs">
+                </div>
+                <div class="col-sm-3">
+                    <!--<div class="input-group">-->
+                        <!--<input type="text" id="search" placeholder="Search" class="input-sm form-control"/>-->
+                        <!--<span class="input-group-btn">-->
+                                <!--<button type="button" class="btn btn-sm btn-primary" onclick="init(1)">鎼滅储</button>-->
+                            <!--</span>-->
+                    <!--</div>-->
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>姓名</th>
+                        <th>顺序</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="table_data">
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="n-add_box" class="row" style="position: fixed;top: 50%;left: 40%;background: #838385;padding: 15px;border-radius: 5px;display:none;">
+    <div class="select">
+        <label style="font-size: 14px;color: #fff;">新序号</label>
+        <input type="text" style="margin-left: 10px;border: 1px solid #ccc;border-radius: 5px;" id="xxh"/>
+    </div>
+    <input type="button" id="sub" onclick="yd2(this)" value="移动" style="background: #1ab394;color: #fff;font-weight:bold;
+    width: 100px;display: block;margin: 0 auto; height: 30px;border-radius: 5px; border: 0; margin-top: 30px;"/>
+</div>
+<script th:src="@{/js/zb/code.js}"></script>

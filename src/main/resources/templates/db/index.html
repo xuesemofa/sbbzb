@@ -1,0 +1,83 @@
+<div class="col-lg-12">
+    <div class="htmlBody1">
+        正在获取数据...
+    </div>
+    <div class="ibox float-e-margins htmlBody2" style="display:none;">
+        <div class="ibox-title">
+            <h5>带班列表</h5>
+            <div class="ibox-tools">
+                <button type="button"
+                        class="btn btn-sm btn-primary"
+                        onclick="window.parent.cli(this)"
+                        data-target="/db/setCode?sex=M">设置顺序(男)</button>
+                <button type="button"
+                        class="btn btn-sm btn-primary"
+                        onclick="window.parent.cli(this)"
+                        data-target="/db/setCode?sex=F">设置顺序(女)</button>
+                <button type="button"
+                        class="btn btn-sm btn-primary toAdd"
+                        onclick="window.parent.cli(this)"
+                        data-target="/db/toAdd"><span class="fa fa-plus"></span></button>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-sm-5 m-b-xs">
+                </div>
+                <div class="col-sm-4 m-b-xs">
+                </div>
+                <div class="col-sm-3">
+                    <div class="input-group">
+                        <input type="text" id="search" placeholder="Search" class="input-sm form-control"/>
+                        <span class="input-group-btn">
+                                <button type="button" class="btn btn-sm btn-primary" onclick="init(1)">搜索</button>
+                            </span>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>姓名</th>
+                        <th>性别</th>
+                        <th>部门</th>
+                        <th>带/值</th>
+                        <th>顺序</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="table_data">
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="8" class="footable-visible">
+                            <ul class="pagination pull-right">
+                                <li class="footable-page-arrow" onclick="init(1)">
+                                    <a data-page="first">
+                                        <font style="vertical-align: inherit;">«</font>
+                                    </a>
+                                </li>
+                                <li class="footable-page active pageNow">
+                                    <a>
+                                        <font style="vertical-align: inherit;">1</font>
+                                    </a>
+                                </li>
+                                <li class="footable-page-arrow" id="db_page_last">
+                                    <a data-page="last">
+                                        <font style="vertical-align: inherit;">»</font>
+                                    </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/db/index.js}"></script>

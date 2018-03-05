@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>INSPINIA | Login</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+    <button type="submit" class="btn btn-primary block full-width m-b" onclick="login()">test</button>
+    <!-- Mainly scripts -->
+    <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+    	function login(){
+	    	$.ajax({
+			    url:"http://localhost:8080/login",    //请求的url地址
+			    dataType:"json",   //返回格式为json
+			    async:true,//请求是否异步，默认为异步，这也是ajax重要特性
+			    data:{"username":"admin","password":"admin"},    //参数值
+			    type:"post",   //请求方式
+			    beforeSend:function(){
+			        //请求前的处理
+			    },
+			    success:function(req){
+			        //请求成功时处理
+			        alert(req.data);
+			    },
+			    complete:function(){
+			        //请求完成的处理
+			    },
+			    error:function(){
+			        //请求出错处理
+			        alert();
+			    }
+			});
+	    }
+    </script>
+
+</body>
+
+</html>

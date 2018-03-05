@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="context-path" th:content="@{/}"/>
+
+    <title>能耗</title>
+
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet"/>
+    <link th:href="@{/css/plugins/toastr/toastr.min.css}" rel="stylesheet"/>
+    <link th:href="@{/js/plugins/gritter/jquery.gritter.css}" rel="stylesheet"/>
+    <link th:href="@{/css/animate.css}" rel="stylesheet"/>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+    <style>
+
+.date_selector, .date_selector *{width: auto;height: auto;border: none;background: none;margin: 0;padding: 0;text-align: left;text-decoration: none;}
+
+.date_selector{left:0;top:0;background:#fbfbfb;border: 1px solid #ccc;padding: 10px;margin:0;margin-top:-1px;position: absolute;z-index:100000;display:none;border-radius: 3px;box-shadow: 0 0 5px #aaa;box-shadow:0 2px 2px #ccc; width:auto;}
+
+.date_selector_ieframe{position: absolute;z-index: 99999;display: none;}
+
+.date_selector .nav{width: 17.5em;}
+
+.date_selector .nav p{clear: none;}
+
+.date_selector .month_nav, .date_selector .year_nav{margin: 0 0 3px 0;padding: 0;display: block;position: relative;text-align: center;}
+
+.date_selector .month_nav{float: left;width: 55%;}
+
+.date_selector .year_nav{float: right;width: 42%;margin-right: -8px;}
+
+.date_selector .month_name, .date_selector .year_name{font-weight: bold;line-height: 20px;}
+
+.date_selector .button{display: block;position: absolute;top: 0;width:18px;height:18px;line-height:16px;font-weight:bold;color:#5985c7;text-align: center;font-size:12px;overflow:hidden;border: 1px solid #ccc;border-radius:2px;}
+
+.date_selector .button:hover, .date_selector .button.hover{background:#5985c7;color: #fff;cursor: pointer;border-color:#3a930d;}
+
+.date_selector .prev{left: 0;}
+
+.date_selector .next{right: 0;}
+
+.date_selector table{border-spacing: 0;border-collapse: collapse;clear: both;margin: 0; width:246px;}
+
+.date_selector th, .date_selector td{width: 2.5em;height: 2em;padding: 0 !important;text-align: center !important;color: #666;font-weight: normal;}
+
+.date_selector th{font-size: 12px;}
+
+.date_selector td{border:1px solid #f1f1f1;line-height: 2em;text-align: center;white-space: nowrap;color:#5985c7;background: #fff;}
+
+.date_selector td.today{background: #eee;}
+
+.date_selector td.unselected_month{color: #ccc;}
+
+.date_selector td.selectable_day{cursor: pointer;}
+
+.date_selector td.selected{background:#2b579a;color: #fff;font-weight: bold;}
+
+.date_selector td.selectable_day:hover, .date_selector td.selectable_day.hover{background:#5985c7;color: #fff;}
+
+
+    </style>
+</head>
+
+<body>
+<div id="wrapper">
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element">
+                        <span><img alt="image" class="img-circle" th:src="@{/img/zhongguo.png}"/></span>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                            <span class="clear">
+                                <span class="block m-t-xs">
+                                    <strong class="font-bold" th:text="${user}"></strong>
+                             </span>
+                                <span class="text-muted text-xs block">菜单<b class="caret"></b></span>
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li><a onclick="cli(this)" data-target="/account/toPWD" target="">修改密码</a></li>
+                        </ul>
+                    </div>
+                    <div class="logo-element">
+                        JC+
+                    </div>
+                </li>
+
+                <li>
+                    <a href="index.html">
+                        <i class="fa fa-th-large"></i>
+                        <span class="nav-label">线上版</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li><a onclick="cli(this)" id="zqdbrysz" data-target="/zqrysz/init">周期带班人员设置</a></li>
+                        <li><a onclick="cli(this)" data-target="/xszbb/init">值班表</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="index.html">
+                        <i class="fa fa-th-large"></i>
+                        <span class="nav-label">线下版</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li class="active"><a href="index.html">Dashboard v.1</a></li>
+                        <li><a href="dashboard_2.html">Dashboard v.2</a></li>
+                        <li><a href="dashboard_3.html">Dashboard v.3</a></li>
+                        <li><a href="dashboard_4_1.html">Dashboard v.4</a></li>
+                        <li><a href="dashboard_5.html">Dashboard v.5 <span
+                                class="label label-primary pull-right">NEW</span></a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="index.html">
+                        <i class="fa fa-th-large"></i>
+                        <span class="nav-label">公共</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li><a onclick="cli(this)" data-target="/people/init">人员管理</a></li>
+                        <li><a onclick="cli(this)" data-target="/db/init">带班人员</a></li>
+                        <li><a onclick="cli(this)" data-target="/zb/init">值班人员</a></li>
+                        <li><a onclick="cli(this)" data-target="/fzbrq/init">非值班日期</a></li>
+                        <li><a onclick="cli(this)" data-target="/dbzbrssz/init">单班值班人数设置</a></li>
+                        <li><a onclick="javascript:alert('只是个分割线而已');">--------------</a></li>
+                        <li><a onclick="cli(this)" data-target="/xszq/init">带/值班周期</a></li>
+                        <li><a onclick="cli(this)" data-target="/zbrysz/init">周期值班人员设置</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+            <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <ul class="nav navbar-top-links navbar-right">
+                    <li>
+                        <span class="m-r-sm text-muted welcome-message">欢迎来到值班系统</span>
+                    </li>
+                    <li>
+                        <a th:href="@{/logout}">
+                            <i class="fa fa-sign-out"></i> 退出
+                        </a>
+                    </li>
+                </ul>
+
+            </nav>
+        </div>
+        <div class="row content">
+            <div class="col-sm-3">
+                <h2>欢迎来到值班系统</h2>
+                <small></small>
+            </div>
+            <div class="col-sm-6">
+            </div>
+            <div class="col-sm-3">
+            </div>
+        </div>
+        <div class="footer">
+            <div class="pull-right">
+                <strong>技术支持：</strong> 品逸科技 &copy; 1970-2018
+            </div>
+            <div></div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/jquery-2.1.1.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+<script th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+<script th:src="@{/js/inspinia.js}"></script>
+<script th:src="@{/js/jquery.date_input.pack.js}"></script>
+<script th:inline="javascript">
+/*<![CDATA[*/
+
+var path = /*[[${#httpServletRequest.getScheme() + "://"
++ #httpServletRequest.getServerName() + ":"
++ #httpServletRequest.getServerPort()
++ #httpServletRequest.getContextPath()}]]*/;
+
+    function cli(a){
+        var dt = $(a).attr('data-target');
+        $.ajax({
+            url:path+dt,
+            cache:false,
+            success:function(data){
+                $('.content').empty();
+                $('.content').html(data);
+            }
+        }).done(function(d){
+        }).fail(function() {
+            alert('维护中');
+        })
+        .always(function() {
+        });
+    }
+/*]]>*/
+
+
+</script>
+</body>
+</html>
